@@ -1,0 +1,26 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/ui": "^2.17.0",
+    "nuxt": "^3.12.4"
+  },
+  "dependencies": {
+    "@lucia-auth/adapter-mongodb": "^1.0.3",
+    "arctic": "^1.9.2",
+    "axios": "^1.7.9",
+    "h3-zod": "^0.5.3",
+    "lucia": "^3.2.0",
+    "mongoose": "^8.5.2",
+    "zod": "^3.24.1"
+  }
+}
