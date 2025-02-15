@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-interface RecipeDAO extends Document {
+export interface RecipeDAO extends Document {
     _id: string;
+    title: string;
     user_id: string;
     origin: string;
     ingredients: string[];
@@ -11,14 +12,19 @@ interface RecipeDAO extends Document {
 const userSchema = new mongoose.Schema(
     {
         _id: {
-            type: String,
-            required: true,
+            type: Schema.Types.ObjectId,
+            auto: true,
+
         },
         user_id: {
             type: String,
             required: true,
         },
         origin: {
+            type: String,
+            required: true,
+        },
+        title: {
             type: String,
             required: true,
         },

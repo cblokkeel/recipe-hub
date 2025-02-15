@@ -28,13 +28,5 @@ async function handleFetchRecipe() {
     <UContainer>
         <UInput v-model="recipeUrl" />
         <UButton @click="handleFetchRecipe" :disabled="loading">Ajouter recette</UButton>
-
-        <div v-if="recipeData !== null">
-            ingredients
-            <div v-for="(item, idx) in recipeData.ingredients" :key="idx">{{ item }}</div>
-
-            instructions
-            <div v-for="(item, idx) in recipeData.instructions" :key="idx">{{ item }}</div>
-        </div>
     </UContainer>
 </template>

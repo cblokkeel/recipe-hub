@@ -1,5 +1,6 @@
 import { zh } from "h3-zod";
 import { z } from "zod";
+import { Recipe } from "~/server/models/Recipe.model";
 import { fetchRecipe } from "~/server/recipe_fetcher/fetch";
 
 export default defineEventHandler(async (event) => {
@@ -15,7 +16,29 @@ export default defineEventHandler(async (event) => {
         recipeUrl: z.string().url(),
     }));
 
-    const recipe = await fetchRecipe(recipeUrl);
+    const { ingredients, instructions, title } = await fetchRecipe(recipeUrl);
 
-    return recipe;
+    try {
+        const recipe = new Recipe({
+            title: title,
+            ingredients: ingredients,
+            instructions: instructions,
+            user_id: user.id,
+            origin: recipeUrl,
+        });
+
+        await recipe.save();
+    } catch (err) {
+        console.log(err)
+        throw createError({
+            statusCode: 500,
+            statusMessage: "failed to create recipe"
+        })
+    }
+
+    return {
+        title,
+        ingredients,
+        instructions
+    };
 });
