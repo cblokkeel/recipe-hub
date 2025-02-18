@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
-    modules: ["@nuxt/ui"],
+    modules: ["@nuxt/ui", "@nuxt/image"],
     extends: ['@nuxt/ui-pro'],
     runtimeConfig: {
         MONGODB_URI: process.env.MONGODB_URI,

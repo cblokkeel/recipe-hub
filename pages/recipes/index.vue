@@ -8,9 +8,10 @@ const isAddModalOpen = ref(false);
 
 <template>
     <UPage>
-        <UContainer>
+        <UContainer class="mt-8">
 
             <UButton 
+                class="mb-2"
                 @click="isAddModalOpen = true"
             >
                 Ajouter une recette

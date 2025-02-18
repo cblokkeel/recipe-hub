@@ -17,6 +17,9 @@ export default <Partial<Config>>{
                     "900": "#792115",
                     "950": "#410e09",
                 }
+            },
+            boxShadow: {
+                light: "rgba(255, 255, 255, 0.25) 0px 2px 0px 0px inset, rgba(189, 45, 17, 0.5) 0px 2px 4px 0px",
             }
         }
     },

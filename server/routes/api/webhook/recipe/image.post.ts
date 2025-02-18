@@ -1,4 +1,5 @@
 import { Recipe } from "~/server/models/Recipe.model";
+import { broadcast } from "~/server/sse/clients";
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never;
 
@@ -41,6 +42,11 @@ export default defineEventHandler(async (event) => {
     recipe.img_url = `${process.env.MINIO_API_URL}/${key}`;
 
     await recipe.save();
+
+    broadcast({
+        recipe_id: recipe.id,
+        newImg: recipe.img_url,
+    }, [recipe.user_id]);
 
     return;
 });
