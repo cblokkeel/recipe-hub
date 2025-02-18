@@ -3,6 +3,13 @@ import { verifyRequestOrigin } from "lucia";
 import type { User, Session } from "lucia";
 
 export default defineEventHandler(async (event) => {
+    const auth = getHeader(event, "Authorization");
+
+    // TODO: securize 
+    if (auth && auth.split(" ")[1] === "MINIO") {
+        return;
+    }
+
 	if (event.node.req.method !== "GET") {
 		const originHeader = getHeader(event, "Origin") ?? null;
 		const hostHeader = getHeader(event, "Host") ?? null;

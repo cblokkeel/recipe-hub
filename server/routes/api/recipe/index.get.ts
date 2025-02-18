@@ -26,9 +26,11 @@ export default defineEventHandler(async (event) => {
     return recipes.map((r) => {
         return {
             id: r._id,
+            title: r.title,
             ingredients: r.ingredients,
             instructions: r.instructions,
             origin: r.origin,
+            img: r.img_url,
         };
     });
 });

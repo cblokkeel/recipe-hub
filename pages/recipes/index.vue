@@ -9,8 +9,16 @@ const isAddModalOpen = ref(false);
 <template>
     <UPage>
         <UContainer>
-            <UButton @click="isAddModalOpen = true">Ajouter une recette</UButton>
-            {{ recipes }}
+
+            <UButton 
+                @click="isAddModalOpen = true"
+            >
+                Ajouter une recette
+            </UButton>
+
+            <UPageGrid>
+                <RecipeCard v-for="(r) in recipes" :key="r.id" :recipe="r" />
+            </UPageGrid>
         </UContainer>
 
         <UModal v-model="isAddModalOpen">

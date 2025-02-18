@@ -7,4 +7,8 @@ export default defineNuxtConfig({
         MONGODB_URI: process.env.MONGODB_URI,
         BASE_URL: process.env.BASE_URL,
     },
+    devServer: {
+        host: "0.0.0.0",
+        port: 3000,
+    }
 });

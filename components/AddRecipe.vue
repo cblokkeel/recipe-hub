@@ -27,6 +27,7 @@ async function handleFetchRecipe() {
 <template>
     <UContainer>
         <UInput v-model="recipeUrl" />
+        <UPageCard to="#" title="test" @click.stop="console.log('tok')" />
         <UButton @click="handleFetchRecipe" :disabled="loading">Ajouter recette</UButton>
     </UContainer>
 </template>

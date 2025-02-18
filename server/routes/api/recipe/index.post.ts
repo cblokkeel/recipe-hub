@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     if (!user) {
         throw createError({
             statusCode: 401,
-            statusMessage: "unauthorized",
+            message: "unauthorized",
         });
     }
 
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         recipeUrl: z.string().url(),
     }));
 
-    const { ingredients, instructions, title } = await fetchRecipe(recipeUrl);
+    const { ingredients, instructions, title, minioId } = await fetchRecipe(recipeUrl);
 
     try {
         const recipe = new Recipe({
@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
             instructions: instructions,
             user_id: user.id,
             origin: recipeUrl,
+            minio_id: minioId,
         });
 
         await recipe.save();
@@ -32,7 +33,7 @@ export default defineEventHandler(async (event) => {
         console.log(err)
         throw createError({
             statusCode: 500,
-            statusMessage: "failed to create recipe"
+            message: "failed to create recipe"
         })
     }
 

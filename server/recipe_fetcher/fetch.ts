@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Recipe } from "~/types/recipe";
 
 const url = process.env.RECIPE_FETCHER_URL;
 
@@ -8,13 +9,7 @@ const client = axios.create({
     timeout: 50_000,
 });
 
-export interface Recipe {
-    title: string;
-    ingredients: string[];
-    instructions: string[];
-}
-
-export async function fetchRecipe(url: string): Promise<Recipe> {
+export async function fetchRecipe(url: string): Promise<Omit<Recipe, "id">> {
     const res = await client.post("/recipe", {
         recipeUrl: url,
     });
@@ -25,5 +20,6 @@ export async function fetchRecipe(url: string): Promise<Recipe> {
         title: res.data.title,
         ingredients: res.data.ingredients,
         instructions: res.data.instructions,
+        minioId: res.data.minioId,
     }
 }
