@@ -20,6 +20,12 @@ const links = [
         <template #logo>
             RecipeHub
         </template>
+
+        <template #right>
+            <UButton variant="soft" color="red">
+                Logout
+            </UButton>
+        </template>
     </UHeader>
 
     <UMain>

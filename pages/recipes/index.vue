@@ -4,18 +4,21 @@ const { data: recipes } = useFetch("/api/recipe", {
 });
 
 const isAddModalOpen = ref(false);
+
+function handleCloseModal() {
+    isAddModalOpen.value = false;
+}
 </script>
 
 <template>
     <UPage>
         <UContainer class="mt-8">
-
-            <UButton 
-                class="mb-2"
-                @click="isAddModalOpen = true"
-            >
-                Ajouter une recette
-            </UButton>
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="font-bold text-2xl">Recipes</h1>
+                <UButton @click="isAddModalOpen = true">
+                    Ajouter une recette
+                </UButton>
+            </div>
 
             <UPageGrid>
                 <RecipeCard v-for="(r) in recipes" :key="r.id" :recipe="r" />
@@ -23,7 +26,7 @@ const isAddModalOpen = ref(false);
         </UContainer>
 
         <UModal v-model="isAddModalOpen">
-            <AddRecipe />
+            <AddRecipe @close="handleCloseModal" />
         </UModal>
     </UPage>
 </template>

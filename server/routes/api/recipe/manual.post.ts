@@ -1,7 +1,6 @@
 import { zh } from "h3-zod";
 import { z } from "zod";
 import { Recipe } from "~/server/models/Recipe.model";
-import { fetchRecipe } from "~/server/recipe_fetcher/fetch";
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user;
@@ -12,11 +11,11 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const { recipeUrl } = await zh.useValidatedBody(event, z.object({
-        recipeUrl: z.string().url(),
+    const { title, ingredients, instructions } = await zh.useValidatedBody(event, z.object({
+        title: z.string().min(1),
+        ingredients: z.array(z.string()).min(1),
+        instructions: z.array(z.string()).min(1),
     }));
-
-    const { ingredients, instructions, title, minioId } = await fetchRecipe(recipeUrl);
 
     try {
         const recipe = new Recipe({
@@ -24,8 +23,7 @@ export default defineEventHandler(async (event) => {
             ingredients: ingredients,
             instructions: instructions,
             user_id: user.id,
-            origin: recipeUrl,
-            minio_id: minioId,
+            minio_id: "TODO",
         });
 
         await recipe.save();
@@ -34,14 +32,14 @@ export default defineEventHandler(async (event) => {
         throw createError({
             statusCode: 500,
             message: "failed to create recipe"
-        })
+        });
     }
 
     setResponseStatus(event, 201);
 
     return {
         title,
+        instructions,
         ingredients,
-        instructions
-    };
+    } 
 });
