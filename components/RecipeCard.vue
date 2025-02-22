@@ -7,13 +7,15 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const recipesStore = useRecipesStore();
+
 const isDeleteModalOpen = ref(false);
 
 const img = computed(() => {
     return props.recipe.img || "./img_placeholder.jpg";
 });
 
-function openDeleteModal(e) {
+function openDeleteModal(e: Event) {
     e.stopPropagation();
     e.preventDefault();
     isDeleteModalOpen.value = true;
@@ -27,6 +29,8 @@ async function handleDelete() {
     await $fetch(`/api/recipe/${props.recipe.id}`, {
         method: "DELETE",
     });
+
+    recipesStore.removeRecipe(props.recipe.id);
 
     navigateTo("/recipes");
 }
