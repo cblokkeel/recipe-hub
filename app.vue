@@ -22,7 +22,7 @@ const links = [
         </template>
 
         <template #right>
-            <UButton variant="soft" color="red">
+            <UButton color="red">
                 Logout
             </UButton>
         </template>

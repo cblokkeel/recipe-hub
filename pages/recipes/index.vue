@@ -1,7 +1,20 @@
 <script setup lang="ts">
-const { data: recipes } = useFetch("/api/recipe", {
+import { storeToRefs } from "pinia";
+import { useRecipesStore } from '~/stores/recipes';
+import type { Recipe } from '~/types/recipe';
+
+const recipesStore = useRecipesStore();
+
+const { data } = await useFetch<Recipe[]>("/api/recipe", {
     method: "GET",
 });
+
+if (data.value) {
+    recipesStore.setRecipes(data.value);
+}
+
+const { recipes } = storeToRefs(recipesStore);
+
 
 const isAddModalOpen = ref(false);
 

@@ -1,22 +1,21 @@
 <script setup lang="ts">
+import type { Recipe } from '~/types/recipe';
+
+const recipeStore = useRecipesStore();
+
 const emit = defineEmits(["close"]);
 
 const recipeUrl = ref("");
-
-const recipeData = ref<{
-    ingredients: string[];
-    instructions: string[];
-} | null>(null)
 
 const loading = ref(false);
 
 const isManual = ref(false);
 
-async function handleFetchRecipe() {
+async function handleAddRecipe() {
     const url = recipeUrl.value;
     recipeUrl.value = "";
     loading.value = true;
-    const recipe = await $fetch("/api/recipe", {
+    const recipe = await $fetch<Recipe>("/api/recipe", {
         method: "POST",
         body: {
             recipeUrl: url,
@@ -24,7 +23,12 @@ async function handleFetchRecipe() {
     });
     loading.value = false;
 
-    recipeData.value = recipe;
+    recipeStore.addRecipes([recipe]);
+}
+
+function handleManualRecipeAdded(r: Recipe) {
+    recipeStore.addRecipes([r]);
+    emit("close");
 }
 </script>
 
@@ -61,9 +65,9 @@ async function handleFetchRecipe() {
 
         <div class="flex gap-2 w-full" v-if="!isManual">
             <UInput v-model="recipeUrl" class="w-full" placeholder="URL" />
-            <UButton @click="handleFetchRecipe" :disabled="loading">Ajouter recette</UButton>
+            <UButton @click="handleAddRecipe" :disabled="loading">Ajouter recette</UButton>
         </div>
 
-        <RecipeForm v-else @created="emit('close')" />
+        <RecipeForm v-else @created="handleManualRecipeAdded" />
     </UCard>
 </template>

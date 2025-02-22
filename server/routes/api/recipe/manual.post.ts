@@ -17,6 +17,8 @@ export default defineEventHandler(async (event) => {
         instructions: z.array(z.string()).min(1),
     }));
 
+    let id: string;
+
     try {
         const recipe = new Recipe({
             title: title,
@@ -27,6 +29,8 @@ export default defineEventHandler(async (event) => {
         });
 
         await recipe.save();
+
+        id = recipe._id;
     } catch (err) {
         console.log(err)
         throw createError({
@@ -38,6 +42,7 @@ export default defineEventHandler(async (event) => {
     setResponseStatus(event, 201);
 
     return {
+        id, 
         title,
         instructions,
         ingredients,

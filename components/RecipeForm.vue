@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
+import type { Recipe } from '~/types/recipe';
 
 const emit = defineEmits(["created"]);
 
@@ -16,7 +17,7 @@ const state = reactive({
 })
 
 async function onSubmit() {
-    await $fetch("/api/recipe/manual", {
+    const r = await $fetch<Recipe>("/api/recipe/manual", {
         method: "POST",
         body: {
             title: state.title,
@@ -25,7 +26,7 @@ async function onSubmit() {
         },
     });
 
-    emit("created");
+    emit("created", r);
 }
 </script>
 
