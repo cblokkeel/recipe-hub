@@ -34,7 +34,16 @@ function handleCloseModal() {
             </div>
 
             <UPageGrid>
-                <RecipeCard v-for="(r) in recipes" :key="r.id" :recipe="r" />
+                <NuxtLink 
+                    v-for="(r) in recipes" 
+                    :key="r.id" 
+                    :to="`/recipes/${r.id}`"
+                >
+                <RecipeCard
+                    :selectable="false"
+                    :recipe="r"
+                />
+                </NuxtLink >
             </UPageGrid>
         </UContainer>
 

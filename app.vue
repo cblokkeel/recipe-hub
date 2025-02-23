@@ -8,8 +8,13 @@ const links = [
     {
         label: "Grocery list",
         icon: "i-heroicons-building-storefront",
-        to: "/grocery"
+        to: "/grocery/new"
     },
+    {
+        label: "History",
+        icon: "i-heroicons-building-storefront",
+        to: "/grocery"
+    }
 ]
 </script>
 

@@ -1,7 +1,7 @@
 import { zh } from "h3-zod";
 import { z } from "zod";
-import { Recipe } from "~/server/models/Recipe.model";
-import { createGrocery, fetchRecipe } from "~/server/recipe_fetcher/fetch";
+import { createGrocery } from "~/server/recipe_fetcher/fetch";
+import { Grocery } from "~/server/models/Grocery.model";
 
 export default defineEventHandler(async (event) => {
     const user = event.context.user;
@@ -18,30 +18,30 @@ export default defineEventHandler(async (event) => {
 
     const { list } = await createGrocery(ingredients);
 
+    let id: string;
+
     try {
-        const recipe = new Recipe({
-            title: title,
-            ingredients: ingredients,
-            instructions: instructions,
+        const grocery = new Grocery({
             user_id: user.id,
-            origin: recipeUrl,
-            minio_id: minioId,
+            list: list,
         });
 
-        await recipe.save();
+        await grocery.save();
+
+        id = grocery._id;
     } catch (err) {
         console.log(err)
         throw createError({
             statusCode: 500,
-            message: "failed to create recipe"
+            message: "failed to create grocery"
         })
     }
 
     setResponseStatus(event, 201);
 
     return {
-        title,
-        ingredients,
-        instructions
+        id: id,
+        list: list,
+        user_id: user.id,
     };
 });

@@ -3,16 +3,19 @@ import type { Recipe } from '~/types/recipe';
 
 interface Props {
     recipe: Recipe
+    selectable: boolean;
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits(["toggleSelect"]);
 
 const recipesStore = useRecipesStore();
 
 const isDeleteModalOpen = ref(false);
+const selected = ref(false);
 
 const img = computed(() => {
-    return props.recipe.img || "./img_placeholder.jpg";
+    return props.recipe.img || "../img_placeholder.jpg";
 });
 
 function openDeleteModal(e: Event) {
@@ -23,6 +26,15 @@ function openDeleteModal(e: Event) {
 
 function handleCloseModal() {
     isDeleteModalOpen.value = false;
+}
+
+function handleClick() {
+    if (!props.selectable) {
+        return;
+    }
+
+    selected.value = !selected.value;
+    emit("toggleSelect");
 }
 
 async function handleDelete() {
@@ -37,18 +49,23 @@ async function handleDelete() {
 </script>
 
 <template>
-    <NuxtLink :to="`/recipes/${recipe.id}`">
+    <div 
+        @click="handleClick"
+        class="flex items-end w-full h-72 bg-center bg-cover rounded-lg cursor-pointer hover:-translate-y-1"
+        :class="{ 'border-4 border-primary-400': selected }"
+        :style="`background-image: url('${img}')`"
 
-        <div class="flex items-end w-full h-72 bg-center bg-cover rounded-lg hover:-translate-y-1"
-            :style="`background-image: url('${img}')`">
-            <div class="glass flex items-center justify-between px-4 rounded-b-lg">
-                <h4 class="w-[90%] font-bold text-lg truncate">{{ recipe.title }}</h4>
-                <UIcon @click.stop="openDeleteModal" name="i-material-symbols:delete-outline-rounded"
-                    class="w-5 h-5 text-red-500 hover:text-red-600 active:text-red-700" />
-            </div>
+    >
+        <div class="glass flex items-center justify-between px-4 rounded-b-lg">
+            <h4 class="w-[90%] font-bold text-lg truncate">{{ recipe.title }}</h4>
+            <UIcon 
+                v-if="!selectable"
+                @click.stop="openDeleteModal"
+                name="i-material-symbols:delete-outline-rounded"
+                class="w-5 h-5 text-red-500 hover:text-red-600 active:text-red-700" 
+            />
         </div>
-
-    </NuxtLink>
+    </div>
 
     <UModal v-model="isDeleteModalOpen">
         <UCard>

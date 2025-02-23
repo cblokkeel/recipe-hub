@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Grocery } from "~/types/grocery";
 import { Recipe } from "~/types/recipe";
 
 const url = process.env.RECIPE_FETCHER_URL;
@@ -9,7 +10,7 @@ const client = axios.create({
     timeout: 50_000,
 });
 
-export async function fetchRecipe(url: string): Promise<Omit<Recipe, "id">> {
+export async function fetchRecipe(url: string): Promise<Omit<Recipe, "id" | "img">> {
     const res = await client.post("/recipe", {
         recipeUrl: url,
     });
@@ -23,3 +24,14 @@ export async function fetchRecipe(url: string): Promise<Omit<Recipe, "id">> {
         minioId: res.data.minioId,
     }
 }
+
+export async function createGrocery(ingredients: string[]): Promise<Grocery> {
+    const res = await client.post("/grocery", {
+        ingredients,
+    });
+
+    return {
+        list: res.data.list,
+    }
+}
+
