@@ -1,0 +1,6 @@
+- [] Grocery lists history 
+- [] Add created at grocery
+- [] Add opacity receipt background img
+- [] Add pagination recipes
+- [] Add pagination grocery
+- [] Add i18n

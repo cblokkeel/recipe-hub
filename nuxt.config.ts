@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@nuxt/image", "@pinia/nuxt"],
-  extends: ['@nuxt/ui-pro'],
-
+  extends: ["@nuxt/ui-pro"],
+  css: ["~/assets/css/main.css"],
   runtimeConfig: {
       MONGODB_URI: process.env.MONGODB_URI,
       BASE_URL: process.env.BASE_URL,

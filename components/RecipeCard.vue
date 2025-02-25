@@ -52,7 +52,7 @@ async function handleDelete() {
     <div 
         @click="handleClick"
         class="flex items-end w-full h-72 bg-center bg-cover rounded-lg cursor-pointer hover:-translate-y-1"
-        :class="{ 'border-4 border-primary-400': selected }"
+        :class="{ 'border-[5px] border-primary-400': selected }"
         :style="`background-image: url('${img}')`"
 
     >
