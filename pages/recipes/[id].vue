@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { Recipe } from '~/types/recipe';
+
 const route = useRoute();
 
 const { id } = route.params;
 
-const { data: recipe, status } = await useFetch(`/api/recipe/${id}`, {
+const { data: recipe, status } = await useFetch<Recipe>(`/api/recipe/${id}`, {
     lazy: true,
     server: false,
 });
@@ -29,39 +31,37 @@ watch(recipe, () => {
 </script>
 
 <template>
-    <UPage v-if="status !== 'idle'">
-        <UContainer v-if="recipe" class="mt-8">
-            <h1 class="text-center font-bold text-2xl mb-4">{{ recipe.title }}</h1>
+    <UContainer v-if="recipe && status !== 'idle'" class="mt-8">
+        <h1 class="text-center font-bold text-2xl mb-4">{{ recipe.title }}</h1>
 
-            <NuxtImg :src="imgUrl" :alt="`${recipe.title} cover image`" class="w-full h-96 object-cover rounded" />
+        <NuxtImg :src="imgUrl" :alt="`${recipe.title} cover image`" class="w-full h-96 object-cover rounded" />
 
-            <div class="mt-4">
-                <h3 class="font-semibold text-xl mb-1">Ingredients :</h3>
+        <div class="mt-4">
+            <h3 class="font-semibold text-xl mb-1">Ingredients :</h3>
 
-                <ul class="list-disc list-inside">
-                    <li v-for="(ingredient) in recipe.ingredients">
-                        {{ ingredient }}
-                    </li>
-                </ul>
-            </div>
+            <ul class="list-disc list-inside">
+                <li v-for="(ingredient) in recipe.ingredients">
+                    {{ ingredient }}
+                </li>
+            </ul>
+        </div>
 
-            <div class="mt-4">
-                <h3 class="font-semibold text-xl mb-1">Instructions :</h3>
+        <div class="mt-4">
+            <h3 class="font-semibold text-xl mb-1">Instructions :</h3>
 
-                <ul class="list-decimal list-inside">
-                    <li v-for="(instruction) in recipe.instructions">
-                        {{ instruction }}
-                    </li>
-                </ul>
-            </div>
-        </UContainer>
+            <ul class="list-decimal list-inside">
+                <li v-for="(instruction) in recipe.instructions">
+                    {{ instruction }}
+                </li>
+            </ul>
+        </div>
+    </UContainer>
 
-        <UContainer v-else class="mt-8">
-            No recipes found
-        </UContainer>
-    </UPage>
-    <UPage v-else>
-        <UContainer class="mt-8">
+    <UContainer v-if="!recipe" class="mt-8">
+        No recipes found
+    </UContainer>
+
+    <UContainer class="mt-8" v-if="status === 'idle'">
             <div class="flex items-center justify-center w-full mb-4">
                 <USkeleton class="h-8 w-[25%]" />
             </div>
@@ -81,6 +81,5 @@ watch(recipe, () => {
                 <USkeleton class="h-4 w-[35%]" />
                 <USkeleton class="h-4 w-[20%]" />
             </div>
-        </UContainer>
-    </UPage>
+    </UContainer>
 </template>

@@ -47,8 +47,7 @@ async function handleCreateGrocery() {
 
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="font-bold text-2xl">Select recipes</h1>
-
+                    <h1 class="font-semibold text-2xl">Select recipes</h1>
                     <span class="text-gray-300"><span class="text-primary-400">{{ selectedRecipes.size }}</span> recipes selected.</span>
                 </div>
 
@@ -56,7 +55,7 @@ async function handleCreateGrocery() {
                     :loading
                     :disabled="selectedRecipes.size <= 0" 
                     @click="handleCreateGrocery"
-                >Create list</UButton>
+                >Create grocery list</UButton>
             </div>
 
             <UPageGrid class="mt-8">
