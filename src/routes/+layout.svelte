@@ -2,13 +2,14 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { setupConvexAuth } from '@mmailaender/convex-auth-svelte/sveltekit';
-	import { convexClient } from '$lib/convex';
+	import Header from '$lib/layout/Header.svelte';
+	import { PUBLIC_CONVEX_URL } from '$env/static/public';
 
 	let { children, data } = $props();
 
 	setupConvexAuth({
 		getServerState: () => data.authState,
-		client: convexClient
+		convexUrl: PUBLIC_CONVEX_URL
 	});
 </script>
 
@@ -16,4 +17,10 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children?.()}
+<div class="flex min-h-screen flex-col">
+	<Header />
+
+	<main class="flex flex-grow flex-col px-24">
+		{@render children?.()}
+	</main>
+</div>
