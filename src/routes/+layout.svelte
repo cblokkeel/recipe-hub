@@ -20,7 +20,7 @@
 <div class="flex min-h-screen flex-col">
 	<Header />
 
-	<main class="flex flex-grow flex-col px-24">
+	<main class="flex flex-grow flex-col px-8 md:px-24">
 		{@render children?.()}
 	</main>
 </div>
