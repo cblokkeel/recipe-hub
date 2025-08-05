@@ -1,4 +1,26 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!"
+    "auth": {
+        "google": "Sign in with Google"
+    },
+    "header": {
+        "logout": "Logout"
+    },
+    "add_recipe": {
+        "title": "Add Recipe",
+        "manual": {
+            "title": "Manual",
+            "recipe_title": "Recipe Title",
+            "recipe_placeholder": "Enter recipe title",
+            "ingredients": "Ingredients",
+            "add_ingredient": "Add Ingredient",
+            "instructions": "Instructions",
+            "add_instruction": "Add Instruction",
+            "recipe_cover": "Recipe Cover",
+            "add_recipe": "Add Recipe"
+        },
+        "import": {
+            "title": "Import"
+        }
+    }
 }

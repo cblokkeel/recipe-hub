@@ -2,6 +2,7 @@
 	import { superForm } from 'sveltekit-superforms';
 	import { tick } from 'svelte';
 	import { Trash } from '@lucide/svelte';
+	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 
@@ -110,17 +111,17 @@
 
 <form class="flex flex-col gap-8" method="POST">
 	<fieldset class="fieldset">
-		<legend class="fieldset-legend">Recipe title</legend>
+		<legend class="fieldset-legend">{m['add_recipe.manual.recipe_title']()}</legend>
 		<input
 			type="text"
 			class="input"
-			placeholder="Type here"
+			placeholder={m['add_recipe.manual.recipe_placeholder']()}
 			name="name"
 			bind:value={$form.name}
 			required
 		/>
 
-		<legend class="fieldset-legend">Ingredients</legend>
+		<legend class="fieldset-legend">{m['add_recipe.manual.ingredients']()}</legend>
 		{#each $form.ingredients as ingredient, index (index)}
 			<div class="flex gap-2">
 				<input
@@ -140,10 +141,10 @@
 			</div>
 		{/each}
 		<button class="btn mt-1 w-fit btn-soft" type="button" onclick={addIngredient}>
-			Add ingredient
+			{m['add_recipe.manual.add_ingredient']()}
 		</button>
 
-		<legend class="fieldset-legend">Instructions</legend>
+		<legend class="fieldset-legend">{m['add_recipe.manual.instructions']()}</legend>
 		{#each $form.instructions as instruction, index (index)}
 			<div class="flex gap-2">
 				<input
@@ -164,12 +165,12 @@
 			</div>
 		{/each}
 		<button class="btn mt-1 w-fit btn-soft" type="button" onclick={addInstruction}>
-			Add ingredient
+			{m['add_recipe.manual.add_instruction']()}
 		</button>
 
-		<legend class="fieldset-legend">Recipe cover</legend>
+		<legend class="fieldset-legend">{m['add_recipe.manual.recipe_cover']()}</legend>
 		<input type="file" class="file-input" bind:value={$form.image} />
 	</fieldset>
 
-	<button type="submit" class="btn w-fit btn-accent">Submit</button>
+	<button type="submit" class="btn w-fit btn-accent">{m['add_recipe.manual.add_recipe']()}</button>
 </form>

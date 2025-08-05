@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { useAuth } from '@mmailaender/convex-auth-svelte/svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { user } = $props();
 
@@ -17,11 +18,11 @@
 			<div class="dropdown dropdown-end">
 				<div tabindex="0" role="button" class="btn avatar btn-circle btn-ghost">
 					<div class="w-10 rounded-full">
-						<img alt="profile picture" src={user?.image} />
+						<img alt="user avatar" src={user?.image} />
 					</div>
 				</div>
 				<ul class="dropdown-content menu z-1 mt-3 w-52 menu-sm rounded-box bg-base-100 p-2 shadow">
-					<li><button onclick={signOut}>Logout</button></li>
+					<li><button onclick={signOut}>{m['header.logout']()}</button></li>
 				</ul>
 			</div>
 		</div>
