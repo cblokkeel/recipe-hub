@@ -15,7 +15,7 @@ export const recipeSchema = v.object({
 	created_at: v.string()
 });
 
-export type Recipe = Infer<typeof recipeSchema>;
+export type Recipe = Infer<typeof recipeSchema> & { _id: string };
 
 export const createRecipe = mutation({
 	args: {
@@ -54,5 +54,18 @@ export const recipeByUser = query({
 			.collect();
 
 		return recipes;
+	}
+});
+
+export const getRecipeById = query({
+	args: {
+		id: v.id('recipes')
+	},
+	async handler(ctx, args) {
+		const recipe = await ctx.db.get(args.id);
+		if (!recipe) {
+			throw new Error('Recipe not found');
+		}
+		return recipe;
 	}
 });

@@ -17,7 +17,7 @@
 
 <div class="flex flex-col gap-4">
 	<div class=" flex items-center justify-between">
-		<h1 class="text-lg font-bold">{m['recipes.title']()}</h1>
+		<h1 class="text-xl font-bold">{m['recipes.title']()}</h1>
 		<a class="btn" href="/create-recipe/manual">{m['recipes.add_recipe']()}</a>
 	</div>
 

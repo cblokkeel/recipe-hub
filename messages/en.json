@@ -28,5 +28,12 @@
         "import": {
             "title": "Import"
         }
+    },
+    "recipe": {
+        "breadcrumbs": {
+            "my_recipes": "My Recipes"
+        },
+        "ingredients": "Ingredients",
+        "instructions": "Instructions"
     }
 }

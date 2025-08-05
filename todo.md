@@ -1,6 +1,7 @@
 - [] Import recipe by url
 - [X] Show recipes with image (placeholder if blank)
-- [] Recipe detail page
+- [X] Recipe detail page
 - [] Generate recipe image after creation
 - [] Grocery list creation page
 - [] Add quantities to recipe ingredients
+- [] Add recipe details (serving, time, difficulty)

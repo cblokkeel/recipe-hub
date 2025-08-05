@@ -10,7 +10,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h1 class="text-lg font-bold">{m['add_recipe.title']()}</h1>
+	<h1 class="text-xl font-bold">{m['add_recipe.title']()}</h1>
 	<div role="tablist" class="tabs-lift tabs">
 		<a
 			role="tab"
