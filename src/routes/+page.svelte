@@ -1,8 +1,10 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
-	import Recipe from '$lib/recipes/Recipe.svelte';
+	import RecipeShowcase from '$lib/recipes/RecipeShowcase.svelte';
 	import { Search } from '@lucide/svelte';
+	import { fade, fly } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
 
 	let { data }: PageProps = $props();
 
@@ -24,9 +26,19 @@
 		<input type="text" required placeholder={m['recipes.search_recipes']()} bind:value={filter} />
 	</label>
 
-	<div>
-		{#each filteredRecipes as recipe, index (index)}
-			<Recipe {recipe} />
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+		{#if filteredRecipes.length === 0}
+			<p class="text-accent">{m['recipes.no_recipes']()}</p>
+		{/if}
+		{#each filteredRecipes as recipe (recipe._id)}
+			<div
+				animate:flip={{ duration: 250 }}
+				in:fade={{ duration: 150 }}
+				out:fade={{ duration: 150 }}
+				class="transition-transform hover:-translate-y-1"
+			>
+				<RecipeShowcase {recipe} />
+			</div>
 		{/each}
 	</div>
 </div>

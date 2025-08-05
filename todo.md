@@ -1,5 +1,5 @@
 - [] Import recipe by url
-- [] Show recipes with image (placeholder if blank)
+- [X] Show recipes with image (placeholder if blank)
 - [] Recipe detail page
 - [] Generate recipe image after creation
 - [] Grocery list creation page

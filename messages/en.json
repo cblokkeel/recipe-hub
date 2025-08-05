@@ -9,7 +9,8 @@
     "recipes": {
         "title": "My Recipes",
         "add_recipe": "Add Recipe",
-        "search_recipes": "Search Recipes"
+        "search_recipes": "Search Recipes",
+        "no_recipes": "No recipes found"
     },
     "add_recipe": {
         "title": "Add Recipe",
