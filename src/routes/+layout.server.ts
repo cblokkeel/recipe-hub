@@ -15,5 +15,5 @@ export const load: LayoutServerLoad = async (event) => {
 
 	const user = await client.query(api.user.getViewer, {});
 
-	return { authState: await getAuthState(event), user: user! };
+	return { authState: await getAuthState(event), user: user };
 };

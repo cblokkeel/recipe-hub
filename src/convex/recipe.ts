@@ -1,5 +1,5 @@
 import { v, Infer } from 'convex/values';
-import { mutation } from './_generated/server';
+import { mutation, query } from './_generated/server';
 import { getAuthUserId } from '@convex-dev/auth/server';
 
 const baseRecipeFields = {
@@ -37,5 +37,22 @@ export const createRecipe = mutation({
 		const recipeId = await ctx.db.insert('recipes', recipe);
 
 		return recipeId;
+	}
+});
+
+export const recipeByUser = query({
+	args: {},
+	async handler(ctx, _) {
+		const userId = await getAuthUserId(ctx);
+		if (!userId) {
+			return [];
+		}
+
+		const recipes = await ctx.db
+			.query('recipes')
+			.withIndex('by_user', (q) => q.eq('user_id', userId))
+			.collect();
+
+		return recipes;
 	}
 });

@@ -5,7 +5,7 @@ import { recipeSchema } from './recipe';
 
 const schema = defineSchema({
 	...authTables,
-	recipes: defineTable(recipeSchema)
+	recipes: defineTable(recipeSchema).index('by_user', ['user_id'])
 });
 
 export default schema;
