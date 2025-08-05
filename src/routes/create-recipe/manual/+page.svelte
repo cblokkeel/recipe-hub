@@ -133,7 +133,7 @@
 					value={ingredient}
 					oninput={(e) => updateIngredient(index, (e?.target as HTMLInputElement)?.value)}
 					onkeydown={(e) => handleKeydownIngredientInput(e, index)}
-					required
+					required={index === 0}
 				/>
 				<button class="btn btn-neutral" type="button" onclick={() => removeIngredient(index)}>
 					<Trash size="16" />
@@ -156,7 +156,7 @@
 					value={instruction}
 					oninput={(e) => updateInstruction(index, (e?.target as HTMLInputElement)?.value)}
 					onkeydown={(e) => handleKeydownInstructionInput(e, index)}
-					required
+					required={index === 0}
 				/>
 
 				<button class="btn btn-neutral" type="button" onclick={() => removeInstruction(index)}>

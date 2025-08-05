@@ -2,10 +2,8 @@ import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 import type { Actions, PageServerLoad } from './$types';
-import { useConvexClient } from 'convex-svelte';
 import { api } from '../../../convex/_generated/api';
 import { ConvexHttpClient } from 'convex/browser';
-import { PUBLIC_CONVEX_URL } from '$env/static/public';
 import { createConvexAuthHandlers } from '@mmailaender/convex-auth-svelte/sveltekit/server';
 
 const schema = z.object({
@@ -37,8 +35,8 @@ export const actions = {
 		await client.mutation(api.recipe.createRecipe, {
 			recipe: {
 				name: form.data.name,
-				ingredients: form.data.ingredients,
-				instructions: form.data.instructions
+				ingredients: form.data.ingredients.filter((ing) => ing.trim() !== ''),
+				instructions: form.data.instructions.filter((ins) => ins.trim() !== '')
 			}
 		});
 
