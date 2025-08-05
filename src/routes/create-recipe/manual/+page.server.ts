@@ -5,6 +5,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { api } from '../../../convex/_generated/api';
 import { ConvexHttpClient } from 'convex/browser';
 import { createConvexAuthHandlers } from '@mmailaender/convex-auth-svelte/sveltekit/server';
+import { redirect } from '@sveltejs/kit';
 
 const schema = z.object({
 	name: z.string(),
@@ -40,6 +41,6 @@ export const actions = {
 			}
 		});
 
-		return message(form, 'Form posted successfully!');
+		return redirect(303, '/');
 	}
 } satisfies Actions;
