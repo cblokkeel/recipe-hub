@@ -6,6 +6,11 @@
     "header": {
         "logout": "Logout"
     },
+    "recipes": {
+        "title": "My Recipes",
+        "add_recipe": "Add Recipe",
+        "search_recipes": "Search Recipes"
+    },
     "add_recipe": {
         "title": "Add Recipe",
         "manual": {
