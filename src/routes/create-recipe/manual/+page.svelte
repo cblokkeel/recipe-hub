@@ -1,12 +1,16 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms/client';
 	import { tick } from 'svelte';
 	import { Trash } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
 
 	let { data } = $props();
 
-	const { form } = superForm(data.form);
+	const { form, enhance } = superForm(data.form, {
+		warnings: {
+			duplicateId: false
+		}
+	});
 
 	function updateIngredient(index: number, value: string) {
 		const current = Array.isArray($form.ingredients) ? $form.ingredients : [];
@@ -109,7 +113,7 @@
 	}
 </script>
 
-<form class="flex flex-col gap-8" method="POST">
+<form class="flex flex-col gap-8" method="POST" use:enhance>
 	<fieldset class="fieldset">
 		<legend class="fieldset-legend">{m['add_recipe.manual.recipe_title']()}</legend>
 		<input
