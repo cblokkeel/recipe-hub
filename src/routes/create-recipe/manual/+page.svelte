@@ -135,7 +135,12 @@
 					onkeydown={(e) => handleKeydownIngredientInput(e, index)}
 					required={index === 0}
 				/>
-				<button class="btn btn-neutral" type="button" onclick={() => removeIngredient(index)}>
+				<button
+					disabled={$form.ingredients.length === 1}
+					class="btn btn-neutral"
+					type="button"
+					onclick={() => removeIngredient(index)}
+				>
 					<Trash size="16" />
 				</button>
 			</div>
@@ -159,7 +164,12 @@
 					required={index === 0}
 				/>
 
-				<button class="btn btn-neutral" type="button" onclick={() => removeInstruction(index)}>
+				<button
+					disabled={$form.instructions.length === 1}
+					class="btn btn-neutral"
+					type="button"
+					onclick={() => removeInstruction(index)}
+				>
 					<Trash size="16" />
 				</button>
 			</div>
