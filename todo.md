@@ -5,4 +5,4 @@
 - [] Grocery list creation page
 - [] Add quantities to recipe ingredients
 - [] Add recipe details (serving, time, difficulty)
-- [] Store google image avatar on convex
+- [X] Store google image avatar on convex
