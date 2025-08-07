@@ -9,8 +9,7 @@ import { recipeGenerator } from './lib/recipeGenerator';
 const baseRecipeFields = {
 	name: v.string(),
 	ingredients: v.array(v.string()),
-	instructions: v.array(v.string()),
-	description: v.optional(v.string())
+	instructions: v.array(v.string())
 };
 
 export const recipeSchema = v.object({
