@@ -9,3 +9,7 @@
 - [X] Store google image avatar on convex
 - [] Handle errors in import recipe form
 - [] Create a mock for AI for local development
+- [] Better parsing of recipe generation
+- [] Add rate limiting
+- [] Add the ability to upload a cover image for imported recipes to avoid generation
+- [] Try to retrieve the recipe cover from the webpage to avoid generation
