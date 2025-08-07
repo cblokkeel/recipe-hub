@@ -16,6 +16,7 @@ import type {
 import type * as ai_client from "../ai/client.js";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as lib_recipeCoverGenerator from "../lib/recipeCoverGenerator.js";
 import type * as lib_recipeExtractor from "../lib/recipeExtractor.js";
 import type * as lib_recipeGenerator from "../lib/recipeGenerator.js";
 import type * as recipe from "../recipe.js";
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   "ai/client": typeof ai_client;
   auth: typeof auth;
   http: typeof http;
+  "lib/recipeCoverGenerator": typeof lib_recipeCoverGenerator;
   "lib/recipeExtractor": typeof lib_recipeExtractor;
   "lib/recipeGenerator": typeof lib_recipeGenerator;
   recipe: typeof recipe;

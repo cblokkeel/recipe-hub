@@ -5,13 +5,19 @@
 	import { Search } from '@lucide/svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import { useQuery } from 'convex-svelte';
+	import { api } from '../convex/_generated/api';
 
 	let { data }: PageProps = $props();
+
+	let recipesQuery = useQuery(api.recipe.recipeByUser, {});
 
 	let filter = $state('');
 
 	const filteredRecipes = $derived(
-		data.recipes.filter((recipe) => recipe.name.toLowerCase().includes(filter.toLowerCase()))
+		recipesQuery?.data?.filter((recipe) =>
+			recipe.name.toLowerCase().includes(filter.toLowerCase())
+		) ?? []
 	);
 </script>
 

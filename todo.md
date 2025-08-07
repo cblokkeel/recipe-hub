@@ -1,8 +1,11 @@
 - [X] Import recipe by url
 - [X] Show recipes with image (placeholder if blank)
 - [X] Recipe detail page
-- [] Generate recipe image after creation
+- [X] Generate recipe image after creation
+- [] Add image cover field in manual recipe form
 - [] Grocery list creation page
 - [] Add quantities to recipe ingredients
 - [] Add recipe details (serving, time, difficulty)
 - [X] Store google image avatar on convex
+- [] Handle errors in import recipe form
+- [] Create a mock for AI for local development
