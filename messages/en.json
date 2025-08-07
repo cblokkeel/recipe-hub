@@ -26,7 +26,11 @@
             "add_recipe": "Add Recipe"
         },
         "import": {
-            "title": "Import"
+            "title": "Import",
+            "recipe_url": "Recipe URL",
+            "recipe_url_placeholder": "Enter recipe URL",
+            "import_recipe": "Import Recipe",
+            "importing": "Importing Recipe..."
         }
     },
     "recipe": {

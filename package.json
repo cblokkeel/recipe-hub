@@ -48,6 +48,8 @@
 		"convex": "^1.25.4",
 		"convex-svelte": "^0.0.11",
 		"daisyui": "^5.0.50",
+		"node-html-parser": "^7.0.1",
+		"openai": "^5.12.0",
 		"runed": "^0.31.1"
 	},
 	"pnpm": {

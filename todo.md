@@ -1,4 +1,4 @@
-- [] Import recipe by url
+- [X] Import recipe by url
 - [X] Show recipes with image (placeholder if blank)
 - [X] Recipe detail page
 - [] Generate recipe image after creation

@@ -1,6 +1,10 @@
 import { v, Infer } from 'convex/values';
-import { mutation, query } from './_generated/server';
+import { action, internalAction, mutation, query } from './_generated/server';
 import { getAuthUserId } from '@convex-dev/auth/server';
+import { recipeExtractor } from './lib/recipeExtractor';
+import { api, internal } from './_generated/api';
+import { getOrCreateOpenAIClient } from './ai/client';
+import { recipeGenerator } from './lib/recipeGenerator';
 
 const baseRecipeFields = {
 	name: v.string(),
@@ -67,5 +71,43 @@ export const getRecipeById = query({
 			throw new Error('Recipe not found');
 		}
 		return recipe;
+	}
+});
+
+export const generateRecipeFromText = internalAction({
+	args: {
+		text: v.string()
+	},
+	async handler(_, args) {
+		const openai = getOrCreateOpenAIClient();
+		const recipe = await recipeGenerator.generateRecipeFromText(args.text, openai);
+
+		return recipe;
+	}
+});
+
+export const importRecipeByURL = action({
+	args: {
+		url: v.string()
+	},
+	async handler(ctx, args) {
+		const userId = await getAuthUserId(ctx);
+
+		if (!userId) {
+			throw new Error('User not authenticated');
+		}
+
+		const extractedRecipe = await recipeExtractor.extractByURL(args.url);
+		const res = await ctx.runAction(internal.recipe.generateRecipeFromText, {
+			text: extractedRecipe
+		});
+
+		await ctx.runMutation(api.recipe.createRecipe, {
+			recipe: {
+				name: res.title,
+				ingredients: res.ingredients,
+				instructions: res.instructions
+			}
+		});
 	}
 });
