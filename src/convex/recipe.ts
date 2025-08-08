@@ -64,6 +64,33 @@ export const createRecipe = mutation({
 	}
 });
 
+export const deleteRecipe = mutation({
+	args: {
+		id: v.id('recipes')
+	},
+	async handler(ctx, args) {
+		const userId = await getAuthUserId(ctx);
+		if (!userId) {
+			throw new Error('User not authenticated');
+		}
+
+		const recipe = await ctx.db.get(args.id);
+		if (!recipe || recipe.user_id !== userId) {
+			throw new Error('Recipe not found or access denied');
+		}
+
+		await ctx.db.delete(args.id);
+		if (recipe.cover_id) {
+			try {
+				await ctx.storage.delete(recipe.cover_id);
+			} catch (e) {
+				console.error('Failed to delete cover image from storage:', e);
+			}
+		}
+		return args.id;
+	}
+});
+
 export const recipeByUser = query({
 	args: {},
 	async handler(ctx, _): Promise<(Recipe & { coverUrl?: string })[]> {

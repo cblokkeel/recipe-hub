@@ -39,7 +39,9 @@
             "my_recipes": "My Recipes"
         },
         "ingredients": "Ingredients",
-        "instructions": "Instructions"
+        "instructions": "Instructions",
+        "delete": "Delete Recipe",
+        "deleting": "Deleting Recipe..."
     },
     "grocery": {
         "create": {
