@@ -47,6 +47,10 @@
         "create": {
             "title": "Create Grocery List",
             "generate_list": "Generate Grocery List"
+        },
+        "list": {
+            "title": "Grocery List",
+            "recipes_used": "Recipes Used"
         }
     }
 }

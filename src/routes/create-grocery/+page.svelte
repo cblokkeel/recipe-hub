@@ -1,13 +1,17 @@
 <script lang="ts">
-	import { useQuery } from 'convex-svelte';
+	import { useConvexClient, useQuery } from 'convex-svelte';
 	import { api } from '../../convex/_generated/api';
 	import { Search } from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import type { Id } from '../../convex/_generated/dataModel';
+
+	const convex = useConvexClient();
 
 	const recipesQuery = useQuery(api.recipe.recipeByUser, {});
 
 	let filter = $state('');
-	let selectedRecipes = $state<Set<string>>(new Set<string>());
+	let isGenerating = $state(false);
+	let selectedRecipes = $state<string[]>([]);
 
 	const filteredRecipes = $derived(
 		recipesQuery?.data?.filter((recipe) =>
@@ -17,19 +21,35 @@
 
 	function handleRecipeCheckboxInput(e: Event) {
 		filter = '';
-
 		const checkbox = e.target as HTMLInputElement;
 		const recipeId = checkbox.id;
 
 		if (!checkbox.checked) {
-			selectedRecipes = new Set(Array.from(selectedRecipes).filter((id) => id !== recipeId));
+			selectedRecipes = selectedRecipes.filter((id) => id !== recipeId);
 			return;
 		}
 
-		selectedRecipes.add(recipeId);
+		if (!selectedRecipes.includes(recipeId)) {
+			selectedRecipes = [...selectedRecipes, recipeId];
+		}
 	}
 
-	async function generateGroceryList() {}
+	async function generateGroceryList() {
+		isGenerating = true;
+		try {
+			const groceryId: Id<'groceries'> = await convex.action(api.grocery.createGroceryFromRecipes, {
+				recipes: selectedRecipes as Id<'recipes'>[]
+			});
+
+			isGenerating = false;
+			if (window) {
+				window.location.href = `/grocery/${groceryId}`;
+			}
+		} catch (err) {
+			console.error('Error generating grocery list:', err);
+			isGenerating = false;
+		}
+	}
 </script>
 
 <div class="flex flex-col gap-4">
@@ -55,7 +75,7 @@
 		{/each}
 	</div>
 
-	<button disabled={selectedRecipes.length <= 0} class="btn w-fit">
+	<button disabled={selectedRecipes.length <= 0} class="btn w-fit" onclick={generateGroceryList}>
 		{m['grocery.create.generate_list']()}
 	</button>
 </div>
