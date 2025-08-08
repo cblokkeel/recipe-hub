@@ -7,7 +7,7 @@
 	const recipesQuery = useQuery(api.recipe.recipeByUser, {});
 
 	let filter = $state('');
-	let selectedRecipes = $state<string[]>([]);
+	let selectedRecipes = $state<Set<string>>(new Set<string>());
 
 	const filteredRecipes = $derived(
 		recipesQuery?.data?.filter((recipe) =>
@@ -16,18 +16,17 @@
 	);
 
 	function handleRecipeCheckboxInput(e: Event) {
+		filter = '';
+
 		const checkbox = e.target as HTMLInputElement;
 		const recipeId = checkbox.id;
 
-		if (checkbox.checked) {
-			if (!selectedRecipes.includes(recipeId)) {
-				selectedRecipes = [...selectedRecipes, recipeId];
-			}
-		} else {
-			selectedRecipes = selectedRecipes.filter((id) => id !== recipeId);
+		if (!checkbox.checked) {
+			selectedRecipes = new Set(Array.from(selectedRecipes).filter((id) => id !== recipeId));
+			return;
 		}
 
-		filter = '';
+		selectedRecipes.add(recipeId);
 	}
 
 	async function generateGroceryList() {}
