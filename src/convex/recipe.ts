@@ -10,7 +10,6 @@ import {
 import { getAuthUserId } from '@convex-dev/auth/server';
 import { recipeExtractor } from './lib/recipeExtractor';
 import { api, internal } from './_generated/api';
-import { getOrCreateOpenAIClient } from './ai/client';
 import { recipeGenerator } from './lib/recipeGenerator';
 import { recipeCoverGenerator } from './lib/recipeCoverGenerator';
 import { Id } from './_generated/dataModel';
@@ -155,9 +154,7 @@ export const generateRecipeFromText = internalAction({
 		text: v.string()
 	},
 	async handler(_, args) {
-		const openai = getOrCreateOpenAIClient();
-		const recipe = await recipeGenerator.generateRecipeFromText(args.text, openai);
-
+		const recipe = await recipeGenerator.generateRecipeFromText(args.text);
 		return recipe;
 	}
 });
@@ -241,18 +238,11 @@ export const generateRecipeCover = internalAction({
 			id: args.recipeId
 		});
 
-		console.log('alo', recipe);
-
 		if (!recipe) {
 			throw new Error('Recipe not found');
 		}
 
-		console.log('super..');
-
-		const openai = getOrCreateOpenAIClient();
-		const recipeCoverUrl = await recipeCoverGenerator.generateCoverFromRecipe(recipe, openai);
-
-		console.log('recipeCoverUrl', recipeCoverUrl);
+		const recipeCoverUrl = await recipeCoverGenerator.generateCoverFromRecipe(recipe);
 
 		if (!recipeCoverUrl) {
 			throw new Error('Failed to generate recipe cover image');

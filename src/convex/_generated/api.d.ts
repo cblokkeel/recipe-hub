@@ -13,7 +13,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as ai_client from "../ai/client.js";
+import type * as ai_getLLM from "../ai/getLLM.js";
+import type * as ai_openai from "../ai/openai.js";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as lib_recipeCoverGenerator from "../lib/recipeCoverGenerator.js";
@@ -31,7 +32,8 @@ import type * as user from "../user.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  "ai/client": typeof ai_client;
+  "ai/getLLM": typeof ai_getLLM;
+  "ai/openai": typeof ai_openai;
   auth: typeof auth;
   http: typeof http;
   "lib/recipeCoverGenerator": typeof lib_recipeCoverGenerator;

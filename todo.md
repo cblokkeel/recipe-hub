@@ -13,3 +13,4 @@
 - [] Add rate limiting
 - [] Add the ability to upload a cover image for imported recipes to avoid generation
 - [] Try to retrieve the recipe cover from the webpage to avoid generation
+- [] Optimize image before uploading
