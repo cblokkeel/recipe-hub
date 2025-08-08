@@ -6,13 +6,13 @@
 - [X] Generate recipe image after creation
 - [X] Store google image avatar on convex
 - [X] Add image cover field in manual recipe form
+- [X] Delete recipes
 
 ## Important stuff to do
 
 - [] Grocery list creation page
 - [] Edit recipes
 - [] Paginate recipes
-- [] Delete recipes
 - [] Better parsing of recipe generation
 - [] Handle errors in import recipe form
 - [] Add rate limiting
@@ -25,3 +25,4 @@
 - [] Add the ability to upload a cover image for imported recipes to avoid generation
 - [] Try to retrieve the recipe cover from the webpage to avoid generation
 - [] Optimize image before uploading
+- [] Custom context menu for recipes (delete edit etc)
