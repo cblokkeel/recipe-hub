@@ -16,8 +16,11 @@
 
 	<h1 class="text-xl font-bold">{data.recipe.name}</h1>
 
-	<!-- TODO: add recipe image when implemented -->
-	<img class="h-48 w-full object-cover md:h-122" src={placeholder} alt="Recipe cover" />
+	<img
+		class="h-48 w-full object-cover md:h-122"
+		src={data.recipe.coverUrl ?? placeholder}
+		alt="Recipe cover"
+	/>
 
 	<div class="flex flex-col gap-2 text-primary">
 		<h2 class="font-bold">{m['recipe.ingredients']()}</h2>
