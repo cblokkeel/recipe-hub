@@ -9,6 +9,7 @@
     "recipes": {
         "title": "My Recipes",
         "add_recipe": "Add Recipe",
+        "create_grocery": "Create Grocery List",
         "search_recipes": "Search Recipes",
         "no_recipes": "No recipes found"
     },
@@ -39,5 +40,11 @@
         },
         "ingredients": "Ingredients",
         "instructions": "Instructions"
+    },
+    "grocery": {
+        "create": {
+            "title": "Create Grocery List",
+            "generate_list": "Generate Grocery List"
+        }
     }
 }

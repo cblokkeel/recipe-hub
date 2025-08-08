@@ -24,7 +24,10 @@
 <div class="flex flex-col gap-4">
 	<div class=" flex items-center justify-between">
 		<h1 class="text-xl font-bold">{m['recipes.title']()}</h1>
-		<a class="btn" href="/create-recipe/manual">{m['recipes.add_recipe']()}</a>
+		<div class="flex gap-2">
+			<a class="btn btn-soft btn-accent" href="/create-grocery">{m['recipes.create_grocery']()}</a>
+			<a class="btn" href="/create-recipe/manual">{m['recipes.add_recipe']()}</a>
+		</div>
 	</div>
 
 	<label class="input flex w-full items-center">
