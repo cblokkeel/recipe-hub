@@ -113,7 +113,7 @@
 	}
 </script>
 
-<form class="flex flex-col gap-8" method="POST" use:enhance>
+<form class="flex flex-col gap-8" method="POST" use:enhance enctype="multipart/form-data">
 	<fieldset class="fieldset">
 		<legend class="fieldset-legend">{m['add_recipe.manual.recipe_title']()}</legend>
 		<input
@@ -183,7 +183,7 @@
 		</button>
 
 		<legend class="fieldset-legend">{m['add_recipe.manual.recipe_cover']()}</legend>
-		<input type="file" class="file-input" bind:value={$form.image} />
+		<input type="file" name="cover" class="file-input" bind:value={$form.cover} />
 	</fieldset>
 
 	<button type="submit" class="btn w-fit btn-accent">{m['add_recipe.manual.add_recipe']()}</button>

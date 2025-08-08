@@ -5,16 +5,16 @@
 - [X] Recipe detail page
 - [X] Generate recipe image after creation
 - [X] Store google image avatar on convex
+- [X] Add image cover field in manual recipe form
 
 ## Important stuff to do
 
-- [] Handle errors in import recipe form
 - [] Grocery list creation page
 - [] Edit recipes
 - [] Paginate recipes
 - [] Delete recipes
-- [] Add image cover field in manual recipe form
 - [] Better parsing of recipe generation
+- [] Handle errors in import recipe form
 - [] Add rate limiting
 
 ## Nice to have

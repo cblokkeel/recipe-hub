@@ -11,7 +11,7 @@ const schema = z.object({
 	name: z.string(),
 	ingredients: z.array(z.string()),
 	instructions: z.array(z.string()),
-	image: z.string().optional()
+	cover: z.instanceof(File).optional()
 });
 
 let client: ConvexHttpClient;
@@ -33,12 +33,15 @@ export const actions = {
 			return fail(400, { form });
 		}
 
+		const coverBuffer = await form.data.cover?.arrayBuffer();
+
 		await client.mutation(api.recipe.createRecipe, {
 			recipe: {
 				name: form.data.name,
 				ingredients: form.data.ingredients.filter((ing) => ing.trim() !== ''),
 				instructions: form.data.instructions.filter((ins) => ins.trim() !== '')
-			}
+			},
+			coverFileBuffer: coverBuffer
 		});
 
 		return redirect(303, '/');

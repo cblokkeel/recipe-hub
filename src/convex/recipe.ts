@@ -31,7 +31,8 @@ export type Recipe = Infer<typeof recipeSchema> & { _id: string };
 
 export const createRecipe = mutation({
 	args: {
-		recipe: v.object(baseRecipeFields)
+		recipe: v.object(baseRecipeFields),
+		coverFileBuffer: v.optional(v.bytes())
 	},
 	async handler(ctx, args) {
 		const userId = await getAuthUserId(ctx);
@@ -48,9 +49,16 @@ export const createRecipe = mutation({
 
 		const recipeId = await ctx.db.insert('recipes', recipe);
 
-		ctx.scheduler.runAfter(0, internal.recipe.generateRecipeCover, {
-			recipeId: recipeId
-		});
+		if (args.coverFileBuffer) {
+			await ctx.scheduler.runAfter(0, internal.recipe.storeRecipeCover, {
+				recipeId: recipeId,
+				coverFileBuffer: args.coverFileBuffer
+			});
+		} else {
+			ctx.scheduler.runAfter(0, internal.recipe.generateRecipeCover, {
+				recipeId: recipeId
+			});
+		}
 
 		return recipeId;
 	}
@@ -251,6 +259,21 @@ export const generateRecipeCover = internalAction({
 		const response = await fetch(recipeCoverUrl);
 		const image = await response.blob();
 		const storageId: Id<'_storage'> = await ctx.storage.store(image);
+
+		await ctx.runMutation(internal.recipe.internalUpdateRecipeCover, {
+			recipeId: args.recipeId,
+			coverStorageId: storageId
+		});
+	}
+});
+
+export const storeRecipeCover = internalAction({
+	args: {
+		recipeId: v.id('recipes'),
+		coverFileBuffer: v.bytes()
+	},
+	async handler(ctx, args) {
+		const storageId: Id<'_storage'> = await ctx.storage.store(new Blob([args.coverFileBuffer]));
 
 		await ctx.runMutation(internal.recipe.internalUpdateRecipeCover, {
 			recipeId: args.recipeId,
